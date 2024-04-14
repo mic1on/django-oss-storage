@@ -14,7 +14,12 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.files.storage import default_storage
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.utils import timezone
-from django.utils.timezone import is_naive, make_naive, utc
+from django.utils.timezone import is_naive, make_naive
+try:
+    from django.utils.timezone import utc
+except ImportError:
+    from datetime import timezone
+    utc = timezone.utc
 from django_oss_storage.backends import OssError, OssMediaStorage, OssStaticStorage, OssStorage, _get_config
 from django_oss_storage import defaults
 from oss2 import to_unicode
